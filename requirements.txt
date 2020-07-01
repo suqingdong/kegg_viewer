@@ -1,0 +1,4 @@
+pysvg
+requests
+pillow
+scikit-image

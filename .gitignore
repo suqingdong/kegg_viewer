@@ -1,0 +1,7 @@
+*pyc
+.vscode
+test
+kegg_viewer/cache/
+*.egg-info
+dist
+build
