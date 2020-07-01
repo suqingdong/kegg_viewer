@@ -1,2 +1,3 @@
 include requirements.txt
 include kegg_viewer/banner.txt
+recursive-include examples ko*
