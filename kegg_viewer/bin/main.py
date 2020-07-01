@@ -57,7 +57,7 @@ def main():
         path_list = args['path'].split(',')
 
     genedict = {}
-    if os.path.isfile(args['genelist']):
+    if args['genelist'] and os.path.isfile(args['genelist']):
         logger.debug('parsing genelist file: {genelist}'.format(**args))
         genedict = parse_genelist(args['genelist'])
 
@@ -77,6 +77,9 @@ def main():
             logger.info('>>> save svg file: {}'.format(outfile))
 
         if args['type'] in ('png', 'both'):
+            if not genedict:
+                logger.warn('png mode needs a genelist to highlight!')
+                continue
             logger.info('generating png file for: {} ...'.format(path))
             outfile = '{}/{}.png'.format(args['outdir'], path)
             png = PNG(png_filename, conf_data, genedict)

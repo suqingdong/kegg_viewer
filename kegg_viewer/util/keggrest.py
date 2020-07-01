@@ -18,6 +18,14 @@ class KEGGRest(object):
         return url
         
     @classmethod
+    def list(cls):
+        pass
+
+    @classmethod
+    def link(cls):
+        pass
+        
+    @classmethod
     def show_pathway(cls, mapid, dataset=None, default=None):
         """
             special character replace
