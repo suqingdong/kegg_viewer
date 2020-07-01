@@ -33,7 +33,8 @@ __epilog__ = '''
     %(prog)s -p path.list
     %(prog)s -p path.list -g gene.list -c ./cache -O output
     %(prog)s -p path.list -g gene.list -m online
-    %(prog)s -p path.list -g gene.list -t genlist.txt
+    %(prog)s -p path.list -g gene.list -t png
+    %(prog)s -p path.list -g gene.list -t both
 \033[0m\033[33m
 contact: {__author__} <{__author_email__}>\033[0m
 '''.format(**locals())
@@ -110,7 +111,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-t', '--type',
                         help='the type of output file [%(default)s]',
-                        choices=['svg', 'png'],
+                        choices=['svg', 'png', 'both'],
                         default='svg')
 
     svg_parser = parser.add_argument_group(title='svg relative args', description=None)
