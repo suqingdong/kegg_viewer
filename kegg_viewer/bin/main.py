@@ -40,7 +40,46 @@ contact: {__author__} <{__author_email__}>\033[0m
 '''.format(**locals())
 
 
-def main(args):
+def get_args():
+
+    parser = argparse.ArgumentParser(prog='kegg_viewer',
+                                     description= __doc__,
+                                     epilog= __epilog__,
+                                     formatter_class=argparse.RawTextHelpFormatter)
+
+    parser.add_argument('-p', '--path', help='the input pathway(s)')
+    parser.add_argument('-g', '--genelist',
+                        help='the genelist to highlight, format like: gene[<tab>bgcolor[<tab>fgcolor]]')
+
+    parser.add_argument('-O', '--outdir', help='the output directory [%(default)s]', default='.')
+
+    parser.add_argument('-c', '--cache',
+                        help='the cache directory to store png/conf files [%(default)s]',
+                        default=os.path.join(ROOT_DIR, 'cache'))
+
+    parser.add_argument('-t', '--type',
+                        help='the type of output file [%(default)s]',
+                        choices=['svg', 'png', 'both'],
+                        default='svg')
+
+    svg_parser = parser.add_argument_group(title='svg relative args', description=None)
+    svg_parser.add_argument('-m', '--mode',
+                            help='the mode of output svg [%(default)s]',
+                            choices=['local', 'online', 'base64'],
+                            default='base64')
+
+    args = vars(parser.parse_args())
+
+    if not args['path']:
+        parser.print_help()
+        exit()
+
+    return args
+
+
+def main():
+
+    args = get_args()
 
     start_time = time.time()
 
@@ -91,39 +130,5 @@ def main(args):
 
 
 if __name__ == '__main__':
-    import argparse
+    main()
 
-    parser = argparse.ArgumentParser(
-        prog='kegg_viewer',
-        description= __doc__,
-        epilog= __epilog__,
-        formatter_class=argparse.RawTextHelpFormatter)
-
-    parser.add_argument('-p', '--path', help='the input pathway(s)')
-    parser.add_argument('-g', '--genelist',
-                        help='the genelist to highlight, format like: gene[<tab>bgcolor[<tab>fgcolor]]')
-
-    parser.add_argument('-O', '--outdir', help='the output directory [%(default)s]', default='.')
-
-    parser.add_argument('-c', '--cache',
-                        help='the cache directory to store png/conf files [%(default)s]',
-                        default=os.path.join(ROOT_DIR, 'cache'))
-
-    parser.add_argument('-t', '--type',
-                        help='the type of output file [%(default)s]',
-                        choices=['svg', 'png', 'both'],
-                        default='svg')
-
-    svg_parser = parser.add_argument_group(title='svg relative args', description=None)
-    svg_parser.add_argument('-m', '--mode',
-                            help='the mode of output svg [%(default)s]',
-                            choices=['local', 'online', 'base64'],
-                            default='base64')
-
-    args = vars(parser.parse_args())
-
-    if not args['path']:
-        parser.print_help()
-        exit()
-
-    main(args)
