@@ -40,7 +40,7 @@ contact: {__author__} <{__author_email__}>\033[0m
 '''.format(**locals())
 
 
-def main():
+def main(args):
 
     start_time = time.time()
 
@@ -126,4 +126,4 @@ if __name__ == '__main__':
         parser.print_help()
         exit()
 
-    main()
+    main(args)
