@@ -56,7 +56,8 @@ class SVG(object):
             # check gene, and add a highlighted rect or circle
             color = get_gene_color(title, self.genedict)
             child = self.add_child(shape, position, color)
-            a.addElement(child)
+            if child:
+                a.addElement(child)
             
             svg.addElement(a)
 
@@ -78,6 +79,7 @@ class SVG(object):
             child = Circle(cx=cx, cy=cy, r=r)
         else:
             self.logger.warn('unexpected shape: {}'.format(shape))
+            return
 
         child.set_style(style)
         return child
